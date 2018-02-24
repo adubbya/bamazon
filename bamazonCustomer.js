@@ -36,9 +36,24 @@ function displayProducts() {
         productPick();
     });
 }
-// function to prompt users with product ID request, then # of units 
-function productPick() {
-    
+
+/* function to prompt users with product ID request, then # of units 
+function productPick() { 
+    inquirer
+        .prompt({
+            name: "action",
+            type: "rawlist",
+            message: "",
+            choices: [
+            "Enter the item ID of the product that you desire:",
+            "How many units of the product will you need?"    
+            ]
+        })
+        .then(function(answer) {
+            switch (answer.action) {
+                case
+            }
+        })
     connection.end();        
 }    //if stock_quantity is => #units request,
         // UPDATE diff of stock_quantity -= #unitsrequest
@@ -46,3 +61,4 @@ function productPick() {
 
     // else 
         // console.log("ain't got enuff");
+*/
