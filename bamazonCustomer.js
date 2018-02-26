@@ -37,28 +37,27 @@ function displayProducts() {
     });
 }
 
-/* function to prompt users with product ID request, then # of units 
+//function to prompt users with product ID request, then # of units 
 function productPick() { 
     inquirer
         .prompt({
-            name: "action",
-            type: "rawlist",
-            message: "",
-            choices: [
-            "Enter the item ID of the product that you desire:",
-            "How many units of the product will you need?"    
-            ]
+            name: "itemID",
+            type: "input",
+            message: "Please enter item ID of product you want to purchase:  ",
         })
         .then(function(answer) {
-            switch (answer.action) {
-                case
-            }
-        })
-    connection.end();        
-}    //if stock_quantity is => #units request,
+            console.log(answer.itemID);
+            var query = "SELECT products.product_name FROM products WHERE ?"
+            connection.query(query, { item_id: answer.itemID }, function(err, res) {
+            console.log("You want " + res.product_name + "?")
+            });
+                 
+         });
+    };
+
+    //if stock_quantity is => #units request,
         // UPDATE diff of stock_quantity -= #unitsrequest
         // price *= #unitsrequest 
 
     // else 
-        // console.log("ain't got enuff");
-*/
+        // console.log("ain't got enuff")
