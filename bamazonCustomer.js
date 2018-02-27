@@ -33,31 +33,65 @@ function displayProducts() {
         }
 
         console.log(table.toString());
-        productPick();
+        productPick(res);
     });
 }
 
 //function to prompt users with product ID request, then # of units 
-function productPick() { 
+function productPick(stock) {
     inquirer
         .prompt({
             name: "itemID",
             type: "input",
             message: "Please enter item ID of product you want to purchase:  ",
         })
-        .then(function(answer) {
-            console.log(answer.itemID);
-            var query = "SELECT products.product_name FROM products WHERE ?"
-            connection.query(query, { item_id: answer.itemID }, function(err, res) {
-            console.log("You want " + res.product_name + "?")
-            });
-                 
-         });
-    };
+        .then(function (answer) {
+            var itemIDint = parseInt(answer.itemID);
+            var product = checkTheStock(itemIDint, stock);
+            if (product) {
+                console.log("You want " + product.product_name + "?");
+                productQuantity(product);
 
-    //if stock_quantity is => #units request,
-        // UPDATE diff of stock_quantity -= #unitsrequest
-        // price *= #unitsrequest 
+            }
+            else {
+                console.log("ain't got dat, frag face")
+            }
+        });
+};
 
-    // else 
-        // console.log("ain't got enuff")
+// Inventory checker for loop?
+function checkTheStock(itemIDint, stock) {
+    for (var i = 0; i < stock.length; i++) {
+
+        if (stock[i].item_id === itemIDint) {
+            return stock[i];
+            console.log(stock[i]);
+        }
+    }
+    return null;
+}
+
+// quantity check
+function productQuantity(product) {
+    inquirer
+        .prompt({
+            name: "itemQuantity",
+            type: "input",
+            message: "OK, How many ya want?",
+        })
+        .then(function (answer) {
+            var quantity = parseInt(answer.itemQuantity);
+            if (quantity > answer.stock_quantity) {
+                console.log("\nWe're all out!");
+            }
+            else {
+                console.log("We can give ya " + quantity + " of 'em");
+                productBuy(product, quantity);
+            };
+        });
+    }
+
+ //price check
+ function productBuy(product, quantity) {
+     // sql update, math: quant*quantwanted
+ }   
