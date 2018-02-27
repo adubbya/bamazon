@@ -31,9 +31,9 @@ function displayProducts() {
         for (var i = 0; i < res.length; i++) {
             table.push([res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]);
         }
-
         console.log(table.toString());
         productPick(res);
+       
     });
 }
 
@@ -65,7 +65,7 @@ function checkTheStock(itemIDint, stock) {
 
         if (stock[i].item_id === itemIDint) {
             return stock[i];
-            console.log(stock[i]);
+            //console.log(stock[i]);
         }
     }
     return null;
@@ -81,17 +81,17 @@ function productQuantity(product) {
         })
         .then(function (answer) {
             var quantity = parseInt(answer.itemQuantity);
-            if (quantity > answer.stock_quantity) {
+            if (quantity > product.stock_quantity) {
                 console.log("\nWe're all out!");
             }
             else {
                 console.log("We can give ya " + quantity + " of 'em");
-                productBuy(product, quantity);
+            //    productBuy(product, quantity);
             };
         });
     }
 
  //price check
- function productBuy(product, quantity) {
+// function productBuy(product, quantity) {
      // sql update, math: quant*quantwanted
- }   
+// }    
